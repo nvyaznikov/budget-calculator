@@ -1,0 +1,175 @@
+@import './tabler-icons.min.css';
+@import './common.css';
+
+
+/* Header */
+.header .container {
+    border-bottom: var(--border-layout);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.menu_items {
+    display: flex;
+}
+
+.menu_item {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.menu_item_link {
+    color: var(--color);
+}
+
+.logo {
+    font-weight: 800;
+    font-size: var(--fs-big);
+    width: 100px;
+    border-top: 2px solid var(--color-text);
+    border-left: 2px solid var(--color-text);
+    border-right: 2px solid var(--color);
+    border-bottom: 2px solid var(--color);
+    padding: 7px 10px 5px 10px;
+    border-radius: var(--br);
+    text-align: center;
+    line-height: 1.1;
+    background: linear-gradient(145deg, var(--color-text) 50%, var(--color) 50%, var(--color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.block_text {
+    margin-bottom: 20px
+}
+
+/* switch btn */
+.header_options {
+    display: flex;
+    align-items: center;
+}
+
+.switch {
+    border: 2px solid rgba(var(--color-text-rgb), 0.1);
+    width: 72px;
+    padding: 4px;
+    margin-right: 120px;
+    position: relative;
+    border-radius: 45px;
+    cursor: pointer;
+}
+
+.switch::before,
+.switch::after {
+    font-family: 'tabler-icons';
+    position: absolute;
+    top: 4px;
+    font-size: var(--fs-big);
+}
+
+.switch::before {
+    content: "\eaf8";
+    left: -30px;
+    color: var(--color);
+}
+
+.switch::after {
+    content: "\eb30";
+    right: -30px;
+    color: rgba(var(--color-text-rgb), 0.1);
+}
+
+.switch_btn {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--color);
+    transition-duration: 500ms;
+}
+
+.switch.active .switch_btn {
+    transform: translateX(100%);
+}
+
+.switch.active::after {
+    transition: 0.4s;
+    color: var(--color);
+}
+
+.switch.active::before {
+    transition: 0.4s;
+    color: rgba(var(--color-text-rgb), 0.1);
+}
+
+
+/* Profits */
+
+.profits,
+.spends,
+.all_regular_spends,
+.saving,
+.total_summary {
+    background-color: var(--bg-optional);
+    padding: 15px;
+    border-radius: var(--br);
+    align-items: center;
+    margin-bottom: 25px;
+    border: var(--border-layout);
+}
+
+.text {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.button_delete,
+.button_update{
+    display: flex;
+    font-size: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.add_expense_profits,
+.add_expense_costs,
+.add_expense_spends{
+    display: inline-block;
+    border-radius: 45px;
+    font-size: 14px;
+    font-family: var(--font);
+    transition: 250ms;
+    white-space: nowrap;
+    background-color:var(--color);
+    color: var(--bg);
+    padding: 22px 35px;
+}
+
+.add_expense_profits:hover,
+.add_expense_costs:hover,
+.add_expense_spends:hover{
+    background-color:#252525;
+    color: #ccff00;
+}
+
+.total_summ_header{
+    font-size: 120px;
+}
+
+.income_category{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.render_block{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: space-around;
+}

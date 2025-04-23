@@ -1,0 +1,389 @@
+@font-face {
+    font-family: 'Mont';
+    src: url('Mont-Heavy.eot');
+    src: local('Mont Heavy'), local('Mont-Heavy'),
+        url('../fonts/Mont-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Mont-Heavy.woff2') format('woff2'),
+        url('../fonts/Mont-Heavy.woff') format('woff'),
+        url('../fonts/Mont-Heavy.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Mont';
+    src: url('../fonts/Mont-Bold.eot');
+    src: local('Mont Bold'), local('Mont-Bold'),
+        url('../fonts/Mont-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Mont-Bold.woff2') format('woff2'),
+        url('../fonts/Mont-Bold.woff') format('woff'),
+        url('../fonts/Mont-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Mont';
+    src: url('../fonts/Mont-Regular.eot');
+    src: local('Mont Regular'), local('Mont-Regular'),
+        url('../fonts/Mont-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Mont-Regular.woff2') format('woff2'),
+        url('../fonts/Mont-Regular.woff') format('woff'),
+        url('../fonts/Mont-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --bg: #252525;
+    --bg-optional: #2f2f2f;
+    
+    --color: #9af012;
+    --color-optional: #ff4949;
+    
+    --color-text-rgb: 255, 255, 255;
+    --color-text: rgb(var(--color-text-rgb));
+    --color-text-optional: rgba(var(--color-text-rgb), 0.55);
+
+    --font: Mont;
+    --font-heading: Mont;
+
+    --fs-big: 22px;
+    --fs: 16px;
+    --fs-middle: 14px;
+    --fs-small: 12px;
+
+    --br-big: 25px;
+    --br: 20px;
+    --br-middle: 15px;
+    --br-small: 10px;
+
+    --border: 1px solid var(--bg-optional);
+    --border-layout: 2px solid var(--bg-optional);
+}
+
+body.light {
+    --bg: #ffffff;
+    --bg-optional: #e4e4e4;
+    --color-text-rgb: 29, 29, 29;
+    --color-text: rgb(var(--color-text-rgb));
+    --color-text-optional: rgba(var(--color-text-rgb), 0.55);
+    --border: 1px solid var(--bg-optional);
+    --border-layout: 2px solid var(--bg-optional);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: var(--fs);
+    line-height: 1.4;
+    background-color: var(--bg);
+    color: var(--color-text);;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+h1, 
+h2 {
+    font-weight: 800;
+}
+
+h2 {
+    margin-bottom: 25px;
+    font-size: 35px;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 22px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ul {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+b {
+    color: rgba(var(--color-text-rgb), 0.9);
+}
+
+img,
+svg {
+    max-width: 100%;
+    vertical-align: top;
+}
+
+input:not(input[type="range"]),
+select,
+textarea {
+    display: inline-block;
+    padding: 20px 30px;
+    border-radius: 45px;
+    background-color: var(--bg);
+    color: var(--color-text);
+    font-family: var(--font);
+    font-size: var(--fs);
+    border: none;
+}
+
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+label {
+    font-size: var(--fs-small);
+    color: var(--color-text-optional);
+    margin-left: 20px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    background-image: url(../img/calendar.svg);
+}
+
+body.light input[type=date]::-webkit-calendar-picker-indicator {
+    background-image: url(../img/calendar-black.svg);
+}
+
+.label_checkbox {
+    position: relative;
+    padding-left: 37px;
+}
+.label_checkbox::before {
+    content: '';
+    font-family: tabler-icons;
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-color: var(--bg);
+    color: var(--bg);
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
+}
+.input_checkbox:checked + .label_checkbox::before {
+    content: "\ea5e";
+    background-color: var(--color);
+}
+
+.container {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.indent {
+    padding-top: 50px;
+    padding-bottom: 0px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 20px;
+}
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    margin: 15px;
+}
+.col-1 {width: calc(8.3333% - 30px); }
+.col-2 {width: calc(16.6666% - 30px); }
+.col-3 {width: calc(25% - 30px); }
+.col-4 {width: calc(33.3333% - 30px); }
+.col-5 {width: calc(41.6666% - 30px); }
+.col-6 {width: calc(50% - 30px); }
+.col-7 {width: calc(58.3333% - 30px); }
+.col-8 {width: calc(66.6666% - 30px); }
+.col-9 {width: calc(75% - 30px); }
+.col-10 {width: calc(83.3333% - 30px); }
+.col-11 {width: calc(91.6666% - 30px); }
+.col-12 {width: calc(100% - 30px); }
+
+/* Modal forms */
+.form_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.form_col_25,
+.form_col_33,
+.form_col_50,
+.form_col_100 {
+    margin: 5px;
+}
+.form_col_25 {
+    width: calc(25% - 10px);
+}
+.form_col_33 {
+    width: calc(33.3333% - 10px);
+}
+.form_col_50 {
+    width: calc(50% - 10px);
+}
+.form_col_100 {
+    width: calc(100% - 10px);
+}
+.privacy_policy {
+    margin-top: 15px;
+}
+
+
+
+/* Buttons */
+.button,
+.button_optional {
+    display: inline-block;
+    border-radius: 45px;
+    font-family: var(--font);
+    font-size: var(--fs-middle);
+    font-weight: 700;
+    transition: 250ms;
+    white-space: nowrap;
+    padding: 22px 35px;
+    cursor: pointer;
+    color: #fff;
+}
+.button {
+    background-color:var(--color);
+}
+.button_optional {
+    background-color: var(--bg-optional);
+}
+.button:not(button[disabled]):hover,
+.button_optional:not(button[disabled]):hover {
+    opacity: 0.7;
+}
+
+
+
+/* Popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+.popup.active {
+    visibility: visible;
+}
+.popup_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.4);
+    opacity: 0;
+    transition-duration: 1s;
+    transition-delay: 200ms;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+}
+.popup.active .popup_bg {
+    opacity: 1;
+    transition-delay: 0s;
+}
+.popup_content {
+    width: 450px;
+    padding: 35px;
+    position: relative;
+    background-color: var(--bg);
+    border-radius: 30px;
+    transform: translateY(-1000px);
+    transition: 1s;
+}
+.popup.active .popup_content { 
+    transform: translateY(0);
+}
+.popup_heading {
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.popup_button_close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: var(--fs);
+    color: var(--color-text);
+    line-height: 2;
+    border-radius: 0 29px 0 29px;
+    transition: 500ms;
+    cursor: pointer;
+    font-weight: 700;
+}
+.popup_button_close:hover {
+    color: var(--color);
+}
+
+/* Popup contents */
+.form_task .button {
+    margin-top: 25px;
+    width: 100%;
+}
+
+.popup_remove_task {
+    text-align: center;
+}
+.popup_remove_task .button {
+    margin-right: 15px;
+} 

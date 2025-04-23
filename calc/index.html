@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор бюджета</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="">
+                    <p>Cash</p>
+                    <p>Keeper</p>                    
+                </a>
+            </div>
+
+    <nav class="menu">
+        <ul class="menu_items">
+            <li class="menu_item">
+                <a href="" class="menu_item_link">Главная</a>
+            </li>
+            
+            <li class="menu_item">
+                <a href="" class="menu_item_link">Календарь</a>
+            </li>
+        </ul>
+    </nav>
+
+            <div class="header_options">
+                <div class="switch">
+                    <div class="switch_btn"></div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <section class="section_incomes">
+        <div class="container indent">
+            <h2>Ваши доходы за месяц 📈</h2>
+
+            <p class="block_text">Укажите источник, сумму и дату дохода за месяц</p>
+
+            <div class="profits">
+                <div class="row">
+                    <div class="col-3">
+                        <label class='text' for="category_profits">Категория:</label>
+                        <input type="text" class="category_text_profits" placeholder="Введите категорию">
+                    </div>
+                    <div class="col-3">
+                        <label class='text' for="amount_profits">Сумма:</label>
+                        <input type="number" class="amount_text_profits" placeholder="Введите сумму">
+                    </div>
+                    <div class="col-3">
+                        <label class='text' for="date_profits">Дата:</label>
+                        <input type="date" class="date_text_profits">
+                    </div> 
+                    <div class="col-3">
+                        <button class='add_expense_profits button_add_income'>Добавить</button>
+                    </div> 
+                </div>
+                <div class="incomes">Нет добавленых доходов за месяц</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="all_spends">
+        <div class="container indent">
+            <h2>Ваши расходы за день 📉</h2>
+
+            <p class="block_text">Укажите источник, сумму и дату расхода за сегодняшний день</p>
+
+            <div class="spends">
+                <div class="row">
+
+                    <div class="col-3">
+                        <label class='text' for="category_spends">Категория:</label>
+                        <input type="text" class="category_text_spends" placeholder="Введите категорию">
+                    </div>
+
+                    <div class="col-3">
+                        <label class='text' for="amount_profits">Сумма:</label>
+                        <input type="number" class="amount_text_spends" placeholder="Введите сумму">
+                    </div>
+
+                
+                    <div class="col-3">
+                        <label class='text' for="date_pends">Дата:</label>
+                        <input type="date" class="date_text_spends">
+                    </div> 
+
+                    <div class="col-3">
+                        <button class='add_expense_spends button_add_spend'>Добавить</button>
+                    </div>
+
+                </div>
+        
+                <div class="waste">Нет добавленных расходов за день</div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="regular_spends">
+        <div class="container indent">
+            <h2>Регулярные расходы 📅</h2>
+            
+            <p class="block_text">Траты, которые стабильно вычитаются из вашего бюджета</p>
+            
+            <div class="all_regular_spends">
+                <div class="row">
+
+                    <div class="col-3">
+                        <label class='text' for="category_costs">Категория:</label>
+                        <select class="regular_category">
+                            <option value="choice">Выберите</option>
+                            <option value="rent">Аренда жилья</option>
+                            <option value="utilities">ЖКУ</option>
+                            <option value="gas">Бензин</option>
+                            <option value="food">Еда</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                  
+                    <div class="col-3">
+                        <label class='text' for="amount">Сумма:</label>
+                        <input type="number" class="regular_amount" placeholder="Введите сумму">
+                    </div>
+
+                    <div class="col-3">
+                        <label class='text' for="date_profits">Дата:</label>
+                        <input type="date" class="regular_date">
+                    </div> 
+
+                    <div class="col-3">
+                        <button class="add_expense_costs button_add_regular_waste">Добавить</button>
+                    </div>
+            
+                </div>
+
+                <div class="regular_waste">Нет добавленых регулярных расходов</div>
+
+            </div>
+        
+            </div>
+        </div>
+    </section>
+
+    <section class="saving_money">
+        <div class="container indent">
+            
+            <h2>Сбережения 🏦</h2>
+        
+            <div class="saving">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label class="text" for="points">Буду откладывать</label>
+                        <input class="saving_range" id="points" type="range" min="0" max="50000" value="0" step="100">
+                        <p class="saving_range_amount" id="amount-display"><span>0</span> ₽/мес</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="summary">
+        <div class="container indent">
+
+            <h2>Ваш бюджет на день 🧮</h2>
+
+            <div class="total_summary">
+                <div class="row">
+
+                    <div class="col-6">
+                        <h2 class="total_summ_header"><span>0</span> ₽</h2>
+                        <h3 class="total_summ_limit_month">Лимит трат на месяц: 22222 ₽</h3>
+                        <h3 class="total_summ_accumulation_month">Накопите за месяц: 33333 ₽</h3>
+                        <h3 class="total_summ_accumulation_year">Накопите за год: 44444 ₽</h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
