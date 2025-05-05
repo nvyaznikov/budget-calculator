@@ -12,6 +12,8 @@ if(localStorage.getItem('savingRange')) {
 savingRange.addEventListener('input', () => {
     savingRangeAmount.innerText = savingRange.value
     localStorage.setItem('savingRange', savingRange.value)
+
+    calcDailyBudget()
 })
 
 
@@ -144,6 +146,8 @@ buttonAddRegularWaste.addEventListener('click', () => {
 
 /** 
  * редактирование записи дохода за месяц
+ * 
+ * дополнить!!!
  */
 
 function updateIncome(button, category, amount, date) {
@@ -191,6 +195,8 @@ function updateIncome(button, category, amount, date) {
 
 /**
  * редактирование записи расхода за день
+ * 
+ * 
  */
 
 function updateCosts(button, category, amount, date) {
@@ -359,42 +365,43 @@ function deleteRegularCosts(button) {
 // 
 function calcDailyBudget() {
 
+    const savingRange = +localStorage.getItem('savingRange')
+
+    // Подсчет общей суммы доходов
     let incomes = 0;
     arrayIncomes.forEach(item => {
         incomes = incomes + +item.amount
     })
 
+    // Подсчет общей суммы расходов
     let costs = 0;
     arrayCosts.forEach(item => {
         costs = costs + +item.amount
     })
     
+    // Подсчет общей суммы регулярных расходов
     let regularCosts = 0;
     arrayRegularCosts.forEach(item => {
         regularCosts = regularCosts + +item.amount;
     })
 
-    const sum = incomes - costs - regularCosts;
+    // Расчет остатка после всех вычетов
+    const sum = incomes - costs - regularCosts - savingRange;
 
+    editAttrMaxInputRange(incomes - costs - regularCosts)
+
+
+    // Расчет оставшихся дней в месяце
     const currentDate = new Date();
     const day = currentDate.getDate();
     const countDaysMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
-
     const numberDaysRemaining = countDaysMonth - day;
     
-    const result = sum / numberDaysRemaining;
 
+    // Расчет ежедневного бюджета
+    const result = sum / numberDaysRemaining;
     totalSummHeader.innerText = result.toFixed(0) <= 0 ? 0 : result.toFixed(0);
 
-    console.log('incomes - ', incomes);
-    console.log('costs - ', costs);
-    console.log('regularCosts - ', regularCosts);
-    console.log('sum - ', sum);
-    console.log('numberDaysRemaining - ', numberDaysRemaining);
-    console.log('day - ', day);
-    console.log('countDaysMonth - ', countDaysMonth);
-    console.log('result.toFixed(0) - ', result.toFixed(0));
-    
 } 
 
 /**
@@ -508,6 +515,19 @@ function createTag(nameTag, classes, text, arrAttr) {
     return tag;
 }
 
+/**
+ * Функция корректировки макс. значения ползунка накоплений
+ * @param {number} sum - Макс. допустимая сумма для установки
+ */
+
+function editAttrMaxInputRange(sum){
+    if(savingRange.value > sum){
+        savingRange.value = sum
+        localStorage.setItem('savingRange', sum)
+    }
+
+    savingRange.setAttribute('max', sum)
+}
 
 // let categoryProfits = document.querySelector('.category_text_profits');
 // let amountProfits = document.querySelector('.amount_text_profits');
