@@ -49,10 +49,13 @@ const inputRegularAmount = document.querySelector('.regular_spends .regular_amou
 const inputRegularDate = document.querySelector('.regular_spends .regular_date');
 
 
-let arrayIncomes = []; // массив с доходами
-let arrayCosts = []; // массив с расходами
-let arrayRegularCosts = []; // массив с постоянными расходами
+let arrayIncomes = localStorage.getItem('incomes') ? JSON.parse(localStorage.getItem('incomes')) : []; // массив с доходами
+let arrayCosts = localStorage.getItem('costs') ? JSON.parse(localStorage.getItem('costs')) : []; // массив с расходами
+let arrayRegularCosts = localStorage.getItem('regularCosts') ? JSON.parse(localStorage.getItem('regularCosts')) : []; // массив с постоянными расходами
 
+randerCosts();
+randerIncomes();
+randerRegularCosts();
 
 /** 
  * Добавить доход за месяц
@@ -71,6 +74,8 @@ buttonAddIncome.addEventListener('click', () => {
     }
 
     arrayIncomes.push(incomeObj)
+
+    localStorage.setItem('incomes', JSON.stringify(arrayIncomes))
 
     randerIncomes();
 
@@ -98,6 +103,8 @@ buttonAddSpend.addEventListener('click', () => {
 
     arrayCosts.push(costsObj)
 
+    localStorage.setItem('costs', JSON.stringify(arrayCosts))
+
     randerCosts();
 
     inputSpendCategory.value = ''
@@ -123,6 +130,8 @@ buttonAddRegularWaste.addEventListener('click', () => {
 
     arrayRegularCosts.push(regularCostsObj)
 
+    localStorage.setItem('regularCosts', JSON.stringify(arrayRegularCosts))
+    
     randerRegularCosts();
 
     selectRegularCategory.value = 'choice';
@@ -157,7 +166,9 @@ function updateIncome(button, category, amount, date) {
 
             const id = button.dataset.id;
 
-            arrayIncomes = arrayIncomes.map(item => {
+            const data = JSON.parse(localStorage.getItem('incomes'))
+
+            const newData = data.map(item => {
                 if (item.id == id) {
                     item.category = category.innerText.trim();
                     item.amount = amount.innerText.trim();
@@ -165,6 +176,9 @@ function updateIncome(button, category, amount, date) {
                 }
                 return item;
             });
+
+            localStorage.setItem('incomes', JSON.stringify(newData))
+
 
             randerIncomes(); // Перерисовка записей
         }
@@ -199,7 +213,9 @@ function updateCosts(button, category, amount, date) {
 
             const id = button.dataset.id;
 
-            arrayCosts = arrayCosts.map(item => {
+            const data = JSON.parse(localStorage.getItem('costs'))
+
+            const newData = data.map(item => {
                 if (item.id == id) {
                     item.category = category.innerText.trim();
                     item.amount = amount.innerText.trim();
@@ -207,6 +223,8 @@ function updateCosts(button, category, amount, date) {
                 }
                 return item;
             });
+
+            localStorage.setItem('costs', JSON.stringify(newData))
 
             randerIncomes(); // Перерисовка записей
         }
@@ -239,7 +257,9 @@ function updateRegularCosts(button, category, amount, date) {
 
             const id = button.dataset.id;
 
-            arrayRegularCosts = arrayRegularCosts.map(item => {
+            const data = JSON.parse(localStorage.getItem('costs'))
+
+            const newData = data.map(item => {
                 if (item.id == id) {
                     item.category = category.innerText.trim();
                     item.amount = amount.innerText.trim();
@@ -247,6 +267,8 @@ function updateRegularCosts(button, category, amount, date) {
                 }
                 return item;
             });
+
+            localStorage.setItem('regularCosts', JSON.stringify(newData))
 
             randerRegularCosts(); // Перерисовка записей
         }
@@ -267,11 +289,15 @@ function deleteIncome(button) {
 
         const id = button.dataset.id
 
-        arrayIncomes = arrayIncomes.filter(item => {
+        const data = JSON.parse(localStorage.getItem('incomes'))
+
+        const newData = data.filter(item => {
             if(item.id != id) {
                 return item
             }
         })
+
+        localStorage.setItem('incomes', JSON.stringify(newData))
 
         randerIncomes();
     })
@@ -284,16 +310,20 @@ function deleteIncome(button) {
 
 function deleteCosts(button) {
     button.addEventListener('click', () => {
-        const question = confirm('Вы действительно хотите удалить доход?');
+        const question = confirm('Вы действительно хотите удалить расход?');
         if(!question) return
 
         const id = button.dataset.id
 
-        arrayCosts = arrayCosts.filter(item => {
+        const data = JSON.parse(localStorage.getItem('costs'))
+
+        const newData = data.filter(item => {
             if(item.id != id) {
                 return item
             }
         })
+
+        localStorage.setItem('costs', JSON.stringify(newData))
 
         randerCosts();
     })
@@ -304,16 +334,20 @@ function deleteCosts(button) {
  */
 function deleteRegularCosts(button) {
     button.addEventListener('click', () => {
-        const question = confirm('Вы действительно хотите удалить доход?');
+        const question = confirm('Вы действительно хотите удалить регулярный доход?');
         if(!question) return
 
         const id = button.dataset.id
 
-        arrayRegularCosts = arrayRegularCosts.filter(item => {
+        const data = JSON.parse(localStorage.getItem('regularCosts'))
+
+        const newData = data.filter(item => {
             if(item.id != id) {
                 return item
             }
         })
+
+        localStorage.setItem('regularCosts', JSON.stringify(newData))
 
         randerRegularCosts(); // Перерисовка записей
     })
@@ -369,8 +403,10 @@ function calcDailyBudget() {
 
 function randerIncomes() {
     containerIncomes.innerHTML = '';
+    
+    const data = localStorage.getItem('incomes') ? JSON.parse(localStorage.getItem('incomes')) : []
 
-    arrayIncomes.forEach(item => {
+    data.forEach(item => {
         const divIncome = createTag('div', 'render_block')
         const category = createTag('div', 'costs_category', item.category)
         const amount = createTag('div', 'costs_amount', item.amount)
@@ -396,7 +432,9 @@ function randerIncomes() {
 function randerCosts() {
     containerCosts.innerHTML = '';
 
-    arrayCosts.forEach(item => {
+    const data = localStorage.getItem('costs') ? JSON.parse(localStorage.getItem('costs')) : [];
+
+    data.forEach(item => {
         const divCosts = createTag('div', 'render_block')
         const category = createTag('div', 'costs_category', item.category)
         const amount = createTag('div', 'costs_amount', item.amount)
@@ -422,8 +460,10 @@ function randerCosts() {
 
 function randerRegularCosts() {
     containerRegularWaste.innerHTML = '';
+    
+    const data = localStorage.getItem('regularCosts') ? JSON.parse(localStorage.getItem('regularCosts')) : [];
 
-    arrayRegularCosts.forEach(item => {
+    data.forEach(item => {
         const divRegularCosts = createTag('div', 'render_block')
         const category = createTag('div', 'costs_category', item.category)
         const amount = createTag('div', 'costs_amount', item.amount)
