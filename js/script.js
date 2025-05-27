@@ -20,6 +20,7 @@ function getCookie(name) {
 /*
     Тема 
 */
+// THeme
 const switchThema = document.querySelector('.switch');
 switchThema.addEventListener('click', () => {
     switchThema.classList.toggle('active');
