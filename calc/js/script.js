@@ -1,5 +1,7 @@
 const totalSummHeader = document.querySelector('.total_summ_header span')
 
+const totalSummAccumulationYear = document.querySelector('.total_summ_accumulation_year span')
+
 const savingRange = document.querySelector('.saving_range');
 const savingRangeAmount = document.querySelector('.saving_range_amount span');
 
@@ -12,6 +14,8 @@ if(localStorage.getItem('savingRange')) {
 savingRange.addEventListener('input', () => {
     savingRangeAmount.innerText = savingRange.value
     localStorage.setItem('savingRange', savingRange.value)
+
+    calcDailyBudget()
 })
 
 
@@ -49,10 +53,13 @@ const inputRegularAmount = document.querySelector('.regular_spends .regular_amou
 const inputRegularDate = document.querySelector('.regular_spends .regular_date');
 
 
-let arrayIncomes = []; // массив с доходами
-let arrayCosts = []; // массив с расходами
-let arrayRegularCosts = []; // массив с постоянными расходами
+let arrayIncomes = localStorage.getItem('incomes') ? JSON.parse(localStorage.getItem('incomes')) : []; // массив с доходами
+let arrayCosts = localStorage.getItem('costs') ? JSON.parse(localStorage.getItem('costs')) : []; // массив с расходами
+let arrayRegularCosts = localStorage.getItem('regularCosts') ? JSON.parse(localStorage.getItem('regularCosts')) : []; // массив с постоянными расходами
 
+randerCosts();
+randerIncomes();
+randerRegularCosts();
 
 /** 
  * Добавить доход за месяц
@@ -71,6 +78,8 @@ buttonAddIncome.addEventListener('click', () => {
     }
 
     arrayIncomes.push(incomeObj)
+
+    localStorage.setItem('incomes', JSON.stringify(arrayIncomes))
 
     randerIncomes();
 
@@ -98,6 +107,8 @@ buttonAddSpend.addEventListener('click', () => {
 
     arrayCosts.push(costsObj)
 
+    localStorage.setItem('costs', JSON.stringify(arrayCosts))
+
     randerCosts();
 
     inputSpendCategory.value = ''
@@ -123,6 +134,8 @@ buttonAddRegularWaste.addEventListener('click', () => {
 
     arrayRegularCosts.push(regularCostsObj)
 
+    localStorage.setItem('regularCosts', JSON.stringify(arrayRegularCosts))
+    
     randerRegularCosts();
 
     selectRegularCategory.value = 'choice';
@@ -135,6 +148,8 @@ buttonAddRegularWaste.addEventListener('click', () => {
 
 /** 
  * редактирование записи дохода за месяц
+ * 
+ * дополнить!!!
  */
 
 function updateIncome(button, category, amount, date) {
@@ -157,7 +172,9 @@ function updateIncome(button, category, amount, date) {
 
             const id = button.dataset.id;
 
-            arrayIncomes = arrayIncomes.map(item => {
+            const data = JSON.parse(localStorage.getItem('incomes'))
+
+            const newData = data.map(item => {
                 if (item.id == id) {
                     item.category = category.innerText.trim();
                     item.amount = amount.innerText.trim();
@@ -165,6 +182,9 @@ function updateIncome(button, category, amount, date) {
                 }
                 return item;
             });
+
+            localStorage.setItem('incomes', JSON.stringify(newData))
+
 
             randerIncomes(); // Перерисовка записей
         }
@@ -177,6 +197,8 @@ function updateIncome(button, category, amount, date) {
 
 /**
  * редактирование записи расхода за день
+ * 
+ * 
  */
 
 function updateCosts(button, category, amount, date) {
@@ -199,7 +221,9 @@ function updateCosts(button, category, amount, date) {
 
             const id = button.dataset.id;
 
-            arrayCosts = arrayCosts.map(item => {
+            const data = JSON.parse(localStorage.getItem('costs'))
+
+            const newData = data.map(item => {
                 if (item.id == id) {
                     item.category = category.innerText.trim();
                     item.amount = amount.innerText.trim();
@@ -207,6 +231,8 @@ function updateCosts(button, category, amount, date) {
                 }
                 return item;
             });
+
+            localStorage.setItem('costs', JSON.stringify(newData))
 
             randerIncomes(); // Перерисовка записей
         }
@@ -239,7 +265,9 @@ function updateRegularCosts(button, category, amount, date) {
 
             const id = button.dataset.id;
 
-            arrayRegularCosts = arrayRegularCosts.map(item => {
+            const data = JSON.parse(localStorage.getItem('costs'))
+
+            const newData = data.map(item => {
                 if (item.id == id) {
                     item.category = category.innerText.trim();
                     item.amount = amount.innerText.trim();
@@ -247,6 +275,8 @@ function updateRegularCosts(button, category, amount, date) {
                 }
                 return item;
             });
+
+            localStorage.setItem('regularCosts', JSON.stringify(newData))
 
             randerRegularCosts(); // Перерисовка записей
         }
@@ -267,11 +297,15 @@ function deleteIncome(button) {
 
         const id = button.dataset.id
 
-        arrayIncomes = arrayIncomes.filter(item => {
+        const data = JSON.parse(localStorage.getItem('incomes'))
+
+        const newData = data.filter(item => {
             if(item.id != id) {
                 return item
             }
         })
+
+        localStorage.setItem('incomes', JSON.stringify(newData))
 
         randerIncomes();
     })
@@ -284,16 +318,20 @@ function deleteIncome(button) {
 
 function deleteCosts(button) {
     button.addEventListener('click', () => {
-        const question = confirm('Вы действительно хотите удалить доход?');
+        const question = confirm('Вы действительно хотите удалить расход?');
         if(!question) return
 
         const id = button.dataset.id
 
-        arrayCosts = arrayCosts.filter(item => {
+        const data = JSON.parse(localStorage.getItem('costs'))
+
+        const newData = data.filter(item => {
             if(item.id != id) {
                 return item
             }
         })
+
+        localStorage.setItem('costs', JSON.stringify(newData))
 
         randerCosts();
     })
@@ -304,16 +342,20 @@ function deleteCosts(button) {
  */
 function deleteRegularCosts(button) {
     button.addEventListener('click', () => {
-        const question = confirm('Вы действительно хотите удалить доход?');
+        const question = confirm('Вы действительно хотите удалить регулярный доход?');
         if(!question) return
 
         const id = button.dataset.id
 
-        arrayRegularCosts = arrayRegularCosts.filter(item => {
+        const data = JSON.parse(localStorage.getItem('regularCosts'))
+
+        const newData = data.filter(item => {
             if(item.id != id) {
                 return item
             }
         })
+
+        localStorage.setItem('regularCosts', JSON.stringify(newData))
 
         randerRegularCosts(); // Перерисовка записей
     })
@@ -325,42 +367,45 @@ function deleteRegularCosts(button) {
 // 
 function calcDailyBudget() {
 
+    const savingRange = +localStorage.getItem('savingRange')
+
+    // Подсчет общей суммы доходов
     let incomes = 0;
     arrayIncomes.forEach(item => {
         incomes = incomes + +item.amount
     })
 
+    // Подсчет общей суммы расходов
     let costs = 0;
     arrayCosts.forEach(item => {
         costs = costs + +item.amount
     })
     
+    // Подсчет общей суммы регулярных расходов
     let regularCosts = 0;
     arrayRegularCosts.forEach(item => {
         regularCosts = regularCosts + +item.amount;
     })
 
-    const sum = incomes - costs - regularCosts;
+    // Расчет остатка после всех вычетов
+    const sum = incomes - costs - regularCosts - savingRange;
 
+    totalSummAccumulationYear.innerText = savingRange * 12;
+
+    editAttrMaxInputRange(incomes - costs - regularCosts)
+
+
+    // Расчет оставшихся дней в месяце
     const currentDate = new Date();
     const day = currentDate.getDate();
     const countDaysMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
-
     const numberDaysRemaining = countDaysMonth - day;
     
-    const result = sum / numberDaysRemaining;
 
+    // Расчет ежедневного бюджета
+    const result = sum / numberDaysRemaining;
     totalSummHeader.innerText = result.toFixed(0) <= 0 ? 0 : result.toFixed(0);
 
-    console.log('incomes - ', incomes);
-    console.log('costs - ', costs);
-    console.log('regularCosts - ', regularCosts);
-    console.log('sum - ', sum);
-    console.log('numberDaysRemaining - ', numberDaysRemaining);
-    console.log('day - ', day);
-    console.log('countDaysMonth - ', countDaysMonth);
-    console.log('result.toFixed(0) - ', result.toFixed(0));
-    
 } 
 
 /**
@@ -369,8 +414,10 @@ function calcDailyBudget() {
 
 function randerIncomes() {
     containerIncomes.innerHTML = '';
+    
+    const data = localStorage.getItem('incomes') ? JSON.parse(localStorage.getItem('incomes')) : []
 
-    arrayIncomes.forEach(item => {
+    data.forEach(item => {
         const divIncome = createTag('div', 'render_block')
         const category = createTag('div', 'costs_category', item.category)
         const amount = createTag('div', 'costs_amount', item.amount)
@@ -396,7 +443,9 @@ function randerIncomes() {
 function randerCosts() {
     containerCosts.innerHTML = '';
 
-    arrayCosts.forEach(item => {
+    const data = localStorage.getItem('costs') ? JSON.parse(localStorage.getItem('costs')) : [];
+
+    data.forEach(item => {
         const divCosts = createTag('div', 'render_block')
         const category = createTag('div', 'costs_category', item.category)
         const amount = createTag('div', 'costs_amount', item.amount)
@@ -422,8 +471,10 @@ function randerCosts() {
 
 function randerRegularCosts() {
     containerRegularWaste.innerHTML = '';
+    
+    const data = localStorage.getItem('regularCosts') ? JSON.parse(localStorage.getItem('regularCosts')) : [];
 
-    arrayRegularCosts.forEach(item => {
+    data.forEach(item => {
         const divRegularCosts = createTag('div', 'render_block')
         const category = createTag('div', 'costs_category', item.category)
         const amount = createTag('div', 'costs_amount', item.amount)
@@ -468,83 +519,19 @@ function createTag(nameTag, classes, text, arrAttr) {
     return tag;
 }
 
+/**
+ * Функция корректировки макс. значения ползунка накоплений
+ * @param {number} sum - Макс. допустимая сумма для установки
+ */
 
-// let categoryProfits = document.querySelector('.category_text_profits');
-// let amountProfits = document.querySelector('.amount_text_profits');
-// let dateProfits = document.querySelector('.date_text_profits');
-// let removeProfits = document.querySelector('.ti-trash');
-// let buttonAddProfits = document.querySelector('.button_add');
+function editAttrMaxInputRange(sum){
+    if(savingRange.value > sum){
+        savingRange.value = sum
+        localStorage.setItem('savingRange', sum)
+    }
 
-
-// removeProfits.addEventListener('click', function() {
-//     const rowToRemove = this.closest('.row');
-//     if (rowToRemove) {
-//         rowToRemove.remove();
-//     }
-// });
-
-
-// buttonAddProfits.addEventListener('click', (e) => {
-
-//     e.preventDefault();
-
-//     const newRow = createTag('div', 'row');
-
-//     // Создаём метку и поле для категории
-//     const categoryLabel = createTag('label', 'text', 'Категория:');
-//     const categoryTextProfits = createTag('input', 'category_text_profits', null, [
-//         {type: 'category', value: 'text'},
-//         {type: 'placeholder', value: 'Введите категорию'}
-//     ]);
-
-//     // Создаём метку и поле для суммы
-//     const amountLabel = createTag('label', 'text', 'Сумма:');
-//     const amountTextProfits = createTag('input', 'amount_text_profits', null, [
-//         {name: 'category', value: 'number'},
-//         {name: 'placeholder', value: 'Введите сумму'}
-//     ]);
-
-//     // Создаём метку и поле для даты
-//     const dateLabel = createTag('label', 'text', 'Дата:');
-//     const dateTextProfits = createTag('input', 'date_text_profits');
-//     dateTextProfits.type = 'date';
-
-//     // Создаём иконку удаления
-//     const deleteProfits = createTag('i', ['ti', 'ti-trash']);
-//     deleteProfits.style.cursor = 'pointer';
-
-//     deleteProfits.addEventListener('click', () => {
-//         newRow.remove()
-//     })
-
-//     // Создаём группу для категории
-//     const row1 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу категории
-//     row1.append(categoryLabel, categoryTextProfits);
-
-//     // Создаём группу для суммы
-//     const row2 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу суммы
-//     row2.append(amountLabel, amountTextProfits);
-    
-//     // Создаём группу для даты
-//     const row3 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу дата
-//     row3.append(dateLabel, dateTextProfits)
-
-//     // Создаём группу для удаления
-//     const row4 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу удаления
-//     row4.append(deleteProfits)
-    
-//     newRow.append(row1, row2, row3, row4);
-
-//     // Добавляем группу в контейнер
-//     document.querySelector('.profits').insertBefore(newRow, buttonAddProfits);
-// });
-
-
-
+    savingRange.setAttribute('max', sum)
+}
 
 
 
