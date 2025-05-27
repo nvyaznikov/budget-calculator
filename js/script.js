@@ -5,6 +5,20 @@ const totalSummAccumulationYear = document.querySelector('.total_summ_accumulati
 const savingRange = document.querySelector('.saving_range');
 const savingRangeAmount = document.querySelector('.saving_range_amount span');
 
+// THeme
+const switchThema = document.querySelector('.switch');
+switchThema.addEventListener('click', () => {
+    switchThema.classList.toggle('active');
+    document.body.classList.toggle('light');
+    const timeCookie = switchThema.classList.contains('active') ? 3600 * 24 * 7 : 0;
+    document.cookie = 'theme=light; max-age=' + timeCookie;
+});
+
+if(getCookie('theme')) {
+    switchThema.classList.add('active');
+    document.body.classList.add('light');
+}
+
 if(localStorage.getItem('savingRange')) {
     const amount = localStorage.getItem('savingRange');
     savingRange.value = amount
