@@ -1,5 +1,7 @@
 const totalSummHeader = document.querySelector('.total_summ_header span')
 
+const totalSummAccumulationYear = document.querySelector('.total_summ_accumulation_year span')
+
 const savingRange = document.querySelector('.saving_range');
 const savingRangeAmount = document.querySelector('.saving_range_amount span');
 
@@ -388,6 +390,8 @@ function calcDailyBudget() {
     // Расчет остатка после всех вычетов
     const sum = incomes - costs - regularCosts - savingRange;
 
+    totalSummAccumulationYear.innerText = savingRange * 12;
+
     editAttrMaxInputRange(incomes - costs - regularCosts)
 
 
@@ -528,83 +532,6 @@ function editAttrMaxInputRange(sum){
 
     savingRange.setAttribute('max', sum)
 }
-
-// let categoryProfits = document.querySelector('.category_text_profits');
-// let amountProfits = document.querySelector('.amount_text_profits');
-// let dateProfits = document.querySelector('.date_text_profits');
-// let removeProfits = document.querySelector('.ti-trash');
-// let buttonAddProfits = document.querySelector('.button_add');
-
-
-// removeProfits.addEventListener('click', function() {
-//     const rowToRemove = this.closest('.row');
-//     if (rowToRemove) {
-//         rowToRemove.remove();
-//     }
-// });
-
-
-// buttonAddProfits.addEventListener('click', (e) => {
-
-//     e.preventDefault();
-
-//     const newRow = createTag('div', 'row');
-
-//     // Создаём метку и поле для категории
-//     const categoryLabel = createTag('label', 'text', 'Категория:');
-//     const categoryTextProfits = createTag('input', 'category_text_profits', null, [
-//         {type: 'category', value: 'text'},
-//         {type: 'placeholder', value: 'Введите категорию'}
-//     ]);
-
-//     // Создаём метку и поле для суммы
-//     const amountLabel = createTag('label', 'text', 'Сумма:');
-//     const amountTextProfits = createTag('input', 'amount_text_profits', null, [
-//         {name: 'category', value: 'number'},
-//         {name: 'placeholder', value: 'Введите сумму'}
-//     ]);
-
-//     // Создаём метку и поле для даты
-//     const dateLabel = createTag('label', 'text', 'Дата:');
-//     const dateTextProfits = createTag('input', 'date_text_profits');
-//     dateTextProfits.type = 'date';
-
-//     // Создаём иконку удаления
-//     const deleteProfits = createTag('i', ['ti', 'ti-trash']);
-//     deleteProfits.style.cursor = 'pointer';
-
-//     deleteProfits.addEventListener('click', () => {
-//         newRow.remove()
-//     })
-
-//     // Создаём группу для категории
-//     const row1 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу категории
-//     row1.append(categoryLabel, categoryTextProfits);
-
-//     // Создаём группу для суммы
-//     const row2 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу суммы
-//     row2.append(amountLabel, amountTextProfits);
-    
-//     // Создаём группу для даты
-//     const row3 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу дата
-//     row3.append(dateLabel, dateTextProfits)
-
-//     // Создаём группу для удаления
-//     const row4 = createTag('div', 'col-3');
-//     // Добавляем все элементы в группу удаления
-//     row4.append(deleteProfits)
-    
-//     newRow.append(row1, row2, row3, row4);
-
-//     // Добавляем группу в контейнер
-//     document.querySelector('.profits').insertBefore(newRow, buttonAddProfits);
-// });
-
-
-
 
 
 
