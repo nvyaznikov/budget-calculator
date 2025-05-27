@@ -5,6 +5,21 @@ const totalSummAccumulationYear = document.querySelector('.total_summ_accumulati
 const savingRange = document.querySelector('.saving_range');
 const savingRangeAmount = document.querySelector('.saving_range_amount span');
 
+/*
+    Возвращает возвращает куки с указанным name
+    
+        name - имя куки
+*/
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+/*
+    Тема 
+*/
 // THeme
 const switchThema = document.querySelector('.switch');
 switchThema.addEventListener('click', () => {
@@ -18,6 +33,7 @@ if(getCookie('theme')) {
     switchThema.classList.add('active');
     document.body.classList.add('light');
 }
+
 
 if(localStorage.getItem('savingRange')) {
     const amount = localStorage.getItem('savingRange');
