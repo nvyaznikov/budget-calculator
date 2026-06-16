@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.vite/
+npm-debug.log*
+server/*.sqlite
+server-out.log
+server-err.log
