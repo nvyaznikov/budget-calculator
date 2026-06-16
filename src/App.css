@@ -1,0 +1,709 @@
+@font-face {
+  font-family: "Mont";
+  src: url("../fonts/Mont-Regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Mont";
+  src: url("../fonts/Mont-Bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Mont";
+  src: url("../fonts/Mont-Heavy.woff2") format("woff2");
+  font-weight: 800;
+}
+
+:root {
+  font-family: "Mont", Arial, sans-serif;
+  color: #ffffff;
+  background: #252525;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.app {
+  --bg: #252525;
+  --panel: #2f2f2f;
+  --panel-deep: #282828;
+  --field: #252525;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.58);
+  --line: rgba(255, 255, 255, 0.08);
+  --accent: #9af012;
+  --accent-dark: #5b930a;
+  --danger: #ff5757;
+  --warning: #f7c948;
+  min-height: 100vh;
+  padding: 24px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app.light {
+  --bg: #f5f5f2;
+  --panel: #ffffff;
+  --panel-deep: #ededeb;
+  --field: #f7f7f5;
+  --text: #1d1d1d;
+  --muted: rgba(29, 29, 29, 0.58);
+  --line: rgba(29, 29, 29, 0.1);
+  --accent: #6fc900;
+  --accent-dark: #467f00;
+  --danger: #d83f3f;
+  --warning: #c58d12;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.topbar,
+.summaryGrid,
+.noticeList,
+.comparisonGrid,
+.layoutGrid,
+.historyPanel {
+  max-width: 1240px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 22px;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--panel);
+}
+
+.logo {
+  display: grid;
+  width: 104px;
+  padding: 8px 10px;
+  border: 2px solid var(--line);
+  border-top-color: var(--text);
+  border-left-color: var(--text);
+  border-right-color: var(--accent);
+  border-bottom-color: var(--accent);
+  border-radius: 8px;
+  color: var(--text);
+  line-height: 1.05;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.logo span:last-child {
+  color: var(--accent);
+}
+
+.topbarTitle p,
+.panelHeader p,
+.dailyCard p,
+.monthPicker span,
+.transactionForm label,
+.savingRange span,
+.donutHeader p,
+.transactionItem p {
+  color: var(--muted);
+}
+
+.topbarTitle h1 {
+  margin-top: 4px;
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1;
+}
+
+.userLine {
+  margin-top: 7px;
+  font-size: 13px;
+}
+
+.topbarActions {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+}
+
+.monthPicker {
+  display: grid;
+  gap: 6px;
+  min-width: 170px;
+  font-size: 12px;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 14px;
+  color: var(--text);
+  background: var(--field);
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: rgba(154, 240, 18, 0.55);
+}
+
+.plainButton,
+.primaryButton,
+.rowActions button,
+.typeSwitch button {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 16px;
+  color: var(--text);
+  background: var(--panel);
+}
+
+.plainButton:hover,
+.rowActions button:hover,
+.typeSwitch button:hover {
+  border-color: rgba(154, 240, 18, 0.45);
+}
+
+.themeButton {
+  width: 46px;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.primaryButton {
+  border-color: transparent;
+  color: #17220b;
+  background: var(--accent);
+  font-weight: 800;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: minmax(280px, 2fr) repeat(4, minmax(150px, 1fr));
+  gap: 14px;
+  padding-top: 26px;
+}
+
+.panel,
+.dailyCard,
+.summaryCard {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.dailyCard {
+  min-height: 170px;
+  padding: 22px;
+}
+
+.dailyCard span,
+.summaryCard span {
+  color: var(--muted);
+}
+
+.dailyCard strong {
+  display: block;
+  margin: 10px 0 12px;
+  color: var(--accent);
+  font-size: clamp(38px, 6vw, 62px);
+  line-height: 1;
+}
+
+.summaryCard {
+  min-height: 170px;
+  padding: 18px;
+}
+
+.summaryCard strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 23px;
+  overflow-wrap: anywhere;
+}
+
+.summaryCard.good strong,
+.amountGood {
+  color: var(--accent);
+}
+
+.summaryCard.bad strong,
+.amountBad {
+  color: var(--danger);
+}
+
+.summaryCard.neutral strong {
+  color: var(--warning);
+}
+
+.noticeList {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.noticeList p,
+.formError {
+  padding: 12px 14px;
+  border: 1px solid rgba(247, 201, 72, 0.28);
+  border-radius: 8px;
+  color: var(--warning);
+  background: rgba(247, 201, 72, 0.08);
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.comparisonCard {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.comparisonCard span,
+.comparisonCard p,
+.comparisonCard small {
+  color: var(--muted);
+}
+
+.comparisonCard strong {
+  display: block;
+  margin: 8px 0 6px;
+  color: var(--text);
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+
+.comparisonCard small {
+  display: block;
+  margin-top: 4px;
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: 390px 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.panel {
+  padding: 20px;
+}
+
+.panelHeader {
+  margin-bottom: 18px;
+}
+
+.panelHeader h2 {
+  font-size: 24px;
+}
+
+.panelHeader p {
+  margin-top: 5px;
+}
+
+.transactionForm {
+  display: grid;
+  align-content: start;
+  gap: 15px;
+}
+
+.transactionForm label {
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.typeSwitch {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--panel-deep);
+}
+
+.typeSwitch button {
+  min-height: 40px;
+  padding: 0 10px;
+  background: transparent;
+}
+
+.typeSwitch button.active {
+  border-color: transparent;
+  color: #17220b;
+  background: var(--accent);
+  font-weight: 800;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.savingRange {
+  display: grid;
+  gap: 10px;
+}
+
+.savingRange input {
+  min-height: auto;
+  padding: 0;
+  accent-color: var(--accent);
+}
+
+.savingControl {
+  display: grid;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+}
+
+.donutGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.donutCard {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-deep);
+}
+
+.donutHeader {
+  margin-bottom: 16px;
+}
+
+.donutHeader h3 {
+  margin-bottom: 4px;
+  font-size: 20px;
+}
+
+.donutContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.chartWrap {
+  position: relative;
+  width: min(100%, 270px);
+  min-height: 270px;
+  margin: 0 auto;
+}
+
+.chartCenter {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 120px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.chartCenter span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.chartCenter strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.legendList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.legendList li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  grid-template-areas:
+    "dot name"
+    ". amount";
+  gap: 3px 9px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+  min-width: 0;
+}
+
+.legendList i {
+  grid-area: dot;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legendList span {
+  grid-area: name;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legendList strong {
+  grid-area: amount;
+  color: var(--text);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.historyPanel {
+  margin-top: 14px;
+}
+
+.historyControls {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.transactionList {
+  display: grid;
+  gap: 10px;
+}
+
+.transactionItem {
+  display: grid;
+  grid-template-columns: 1fr minmax(120px, auto) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-deep);
+}
+
+.transactionItem h3 {
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.typeBadge {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: #17220b;
+  background: var(--warning);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.typeBadge.income {
+  background: var(--accent);
+}
+
+.typeBadge.expense {
+  color: #fff;
+  background: var(--danger);
+}
+
+.rowActions {
+  display: flex;
+  gap: 8px;
+}
+
+.rowActions button {
+  min-height: 38px;
+  padding: 0 12px;
+}
+
+.emptyState {
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  background: var(--panel-deep);
+}
+
+.authPage {
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.58);
+  --line: rgba(255, 255, 255, 0.08);
+  --accent: #9af012;
+  --field: #252525;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  color: var(--text);
+  background: #252525;
+}
+
+.authCard {
+  width: min(100%, 430px);
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #2f2f2f;
+}
+
+.authLogo {
+  margin-bottom: 26px;
+}
+
+.authHeader {
+  margin-bottom: 22px;
+}
+
+.authHeader p {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.authHeader h1 {
+  margin-top: 6px;
+  font-size: 38px;
+}
+
+.authForm {
+  display: grid;
+  gap: 14px;
+}
+
+.authForm label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.authSwitch {
+  width: 100%;
+  margin-top: 18px;
+  color: var(--muted);
+  background: transparent;
+}
+
+.authSwitch:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 1120px) {
+  .topbar {
+    grid-template-columns: 120px 1fr;
+  }
+
+  .topbarActions {
+    grid-column: 1 / -1;
+  }
+
+  .summaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .comparisonGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dailyCard {
+    grid-column: 1 / -1;
+  }
+
+  .layoutGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .donutGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .chartWrap {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 680px) {
+  .app {
+    padding: 14px;
+  }
+
+  .topbar,
+  .summaryGrid,
+  .comparisonGrid,
+  .historyControls,
+  .formGrid,
+  .typeSwitch,
+  .transactionItem {
+    grid-template-columns: 1fr;
+  }
+
+  .topbarActions,
+  .formActions,
+  .rowActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .logo {
+    width: 100px;
+  }
+
+}
